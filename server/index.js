@@ -2,9 +2,11 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose';
 import userRoutes from './modules/auth-module/routes/user.js';
+import tokenRoutes from './modules/auth-module/routes/token.js';
 import authorityRoutes from './modules/auth-module/routes/authority.js';
 import departmentRoutes from './modules/auth-module/routes/department.js';
 import dotenv from 'dotenv';
+import { validateAccessToken } from './modules/api/middleware/token.js';
 
 dotenv.config();
 
@@ -24,8 +26,9 @@ app.use(express.urlencoded(bodyParserOption));
 app.use(cors());
 
 app.use('/user', userRoutes);
-app.use('/authority', authorityRoutes);
-app.use('/department', departmentRoutes);
+app.use('/token', tokenRoutes);
+app.use('/authority', /*validateAccessToken, */authorityRoutes);
+app.use('/department', /*validateAccessToken, */departmentRoutes);
 
 mongoose.connect(MONGODB_URL, {
     useNewUrlPArser: true,

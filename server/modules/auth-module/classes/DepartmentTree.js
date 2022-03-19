@@ -1,4 +1,4 @@
-import Tree from "../../api/Tree.js";
+import Tree from "../../api/classes/Tree.js";
 
 class DepartmentTree extends Tree {
     constructor(department) {

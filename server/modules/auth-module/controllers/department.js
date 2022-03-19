@@ -1,8 +1,7 @@
 import DepartmentData from '../models/department.js';
 import apiResponse from '../../api/api-response.js';
 import paging from '../../api/paging.js';
-import DepartmentTree from '../models/DepartmentTree.js'
-import e from 'express';
+import DepartmentTree from '../classes/DepartmentTree.js'
 
 export const findTree = async (req, res) => {
     console.log('findDepartmentTree');
