@@ -1,0 +1,70 @@
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.game-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-wrap {
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+}
+.game-body {
+    height: 90%;
+    flex-direction: column;
+}
+.game-body-main {
+    flex-direction: column;
+    height: 70%;
+    padding: 10px;
+}
+.game-body-main-left {
+    height: 100%;
+}
+.game-body-main-right {
+}
+.game-body-log {
+    height: 30%;
+}
+.game-body-upgrade {
+    width: 100%;
+    height: 30%;
+}
+.game-log {
+    height: 100%;
+}
+
+.game-click-effect {
+    position: absolute;
+    box-sizing: border-box;
+    border-style: solid;
+    border-radius: 50%;
+    animation: click 0.7s ease-out;
+    border-color: rgba(141, 121, 121, 1);
+    pointer-events:none;
+    /* z-index: 99999; */
+}
+@keyframes click {
+    0% {
+        opacity: 1;
+        width: 0.5em;
+        height: 0.5em;
+        margin: -0.25em; /* half of width & height */
+        border-width: 0.3em;
+    }
+    100% {
+        opacity: 0.2;
+        width: 5em;
+        height: 5em;
+        margin: -2.5em;
+        /* margin-top: -6em;
+        margin-left: -0.75em; */
+        border-width: 0.3em;
+    }
+}
