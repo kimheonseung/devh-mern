@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { faGamepad, faPlay, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faLayerGroup, faPlay, faTable, faUser } from '@fortawesome/free-solid-svg-icons';
 import SidebarMenu from './SidebarMenu';
 
 function SideBar() {
@@ -41,6 +41,16 @@ function SideBar() {
     }
   }
 
+  const department = {
+    menu: {
+      title: '부서 관리',
+      group: 'Department',
+      hasSubMenu: false,
+      icon: faLayerGroup,
+      href: '/department'
+    }
+  }
+
   useEffect(() => {
   })
 
@@ -53,6 +63,7 @@ function SideBar() {
           <div className="p-2"></div>
           <div className="list-group list-group-flush">
               <SidebarMenu menuObject={game} />
+              <SidebarMenu menuObject={department} />
           </div>
         </div>
       </div>

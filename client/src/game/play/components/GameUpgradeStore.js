@@ -57,6 +57,8 @@ function GameUpgradeStore({totalCoin}) {
           el.innerHTML = `${nextGpuCost} DVH`;
           el.dataset.id = 3;
           break;
+        default:
+          break;
       }
 
       el.addEventListener('click', handleUpgradeClick);
@@ -219,6 +221,8 @@ function GameUpgradeStore({totalCoin}) {
       case 3:
         const newGpuLevel = gpuLevel + 1;
         setGpuLevel(newGpuLevel);
+        break;
+      default:
         break;
     }
   }
