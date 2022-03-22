@@ -1,0 +1,14 @@
+.department-wrap {
+    display: flex;
+    height: 100%;
+}
+.department-tree {
+    width: 28%;
+}
+.department-map {
+    background-color: aqua;
+    width: 67%;
+}
+.tui-tree-root {
+    height: 100%;
+}

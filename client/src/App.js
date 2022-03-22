@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'css/theme-common.css';
 import 'css/theme-dark.css';
+// import 'css/reset.css';
 import Home from "Home";
 import dotenv from 'dotenv';
 import GamePage from 'game/play/pages/GamePlayPage';

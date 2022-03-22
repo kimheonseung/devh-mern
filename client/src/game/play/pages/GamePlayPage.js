@@ -86,19 +86,21 @@ function GamePage() {
     <>
       <Layout>
         {/* <ClickEffect x={x} y={y} count={countPerClick} /> */}
-        <div className='game-container'>
-          <div className='t-text game game-wrap'>
-            <GameSummary totalCoin={totalCoin} />
-            <div className='game game-body'>
-              <div className='game game-body-main'>
-                <GameClick handleClick={handleClick} percent={percent} />
-              </div>
-              <div className='game-body-upgrade'>
-                <GameUpgradeStore totalCoin={totalCoin} />
+        {/* <div className='game-container-wrapper'> */}
+          <div className='game-container'>
+            <div className='t-text game game-wrap'>
+              <GameSummary totalCoin={totalCoin} />
+              <div className='game game-body'>
+                <div className='game game-body-main'>
+                  <GameClick handleClick={handleClick} percent={percent} />
+                </div>
+                <div className='game-body-upgrade'>
+                  <GameUpgradeStore totalCoin={totalCoin} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </Layout>
     </>
   );
