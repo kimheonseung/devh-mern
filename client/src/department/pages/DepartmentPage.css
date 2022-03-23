@@ -12,3 +12,18 @@
 .tui-tree-root {
     height: 100%;
 }
+.tui-tree-node {
+    position: relative !important;
+}
+.tui-input-wrap {
+    position: absolute !important;
+    top: 8px;
+}
+.tui-tree-input {
+    z-index: 999;
+	width: 128px;
+	padding: 7px 9px;
+	height: 20px;
+	border: 1px solid #aaa;
+	outline: none
+}

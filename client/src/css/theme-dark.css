@@ -35,6 +35,3 @@
 
 /* tree custom */
 .tui-tree-wrap { background-color: /*dimgray*/ #363636 !important; }
-.tui-tree-text { color: /*indigo*/ #ccc !important; }
-.tui-tree-selected>.tui-tree-content-wrapper { background-color: darkslateblue !important; }
-.tui-page-btn { color: #fff !important; }

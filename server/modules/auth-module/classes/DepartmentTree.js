@@ -4,6 +4,7 @@ class DepartmentTree extends Tree {
     constructor(department) {
         super(department.name);
         this.id = department.id;
+        this.dataId = department.id;
         this.name = department.name;
         this.description = department.description;
         this.department = department.department;
