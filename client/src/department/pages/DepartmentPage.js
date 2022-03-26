@@ -32,20 +32,17 @@ function DepartmentPage() {
       const command = e.command;
       const nodeId = e.nodeId;
       const nodeData = tree.getNodeData(nodeId);
-      console.log(nodeData);
 
       if(nodeData) {
         switch (command) {
           case 'insertDepartment':
-              // tree.createChildNode(nodeId);
-
+              tree.createChildNode(nodeId);
               break;
           case 'updateDepartment':
-              // tree.editNode(nodeId);
+              tree.editNode(nodeId);
               break;
           case 'deleteDepartment':
-              // tree.remove(nodeId);
-              const departmentName = nodeData.name;
+              tree.remove(nodeId);
               break;
         } 
       } else {
@@ -59,9 +56,9 @@ function DepartmentPage() {
       .enableFeature('Editable', {
         dataKey: 'text'
       })
-      .enableFeature('Draggable', {
-        isSortable: true
-      })
+      // .enableFeature('Draggable', {
+      //   isSortable: true
+      // })
       .enableFeature('ContextMenu', {
         menuData: getContextMenu(contextMenuEnable)
       })
@@ -91,52 +88,63 @@ function DepartmentPage() {
                 };
             }
           },
-          /*
-          insert: {
-            url: 'data/response.json',
+          
+          create: {
+            url: apiUrl+'create',
+            method: 'POST',
             contentType: 'application/json',
             params: function(treeData) {
-                return {
-                    targetId: tree.getNodeData(treeData.parentId).pid,
-                    productName: treeData.data.text
-                };
+              const name = treeData.data.text;
+              const parentId = treeData.parentId;
+              const parentNode = tree.getNodeData(parentId);
+              return {
+                name: name,
+                departmentId: parentNode.dataId
+              };
             }
           },
           
-          delete: {
-            url: 'data/response.json',
+          remove: {
+            url: apiUrl+'delete',
+            method: 'POST',
             contentType: 'application/json',
             params: function(treeData) {
-                return {
-                    productId: tree.getNodeData(treeData.nodeId).pid
-                };
+              const nodeId = treeData.nodeId;
+              const node = tree.getNodeData(nodeId);
+              return {
+                name: node.name
+              };
             }
           },
-          */
+          
         },
         parseData: (command, responseData) => {
           switch (command) {
             case 'read':
-              if(responseData) {
-                return responseData.data[0];
-              } else {
-                return false;
-              }
+              return responseData.data[0];
             case 'update':
-              console.log(responseData);
+            case 'create':
+            case 'remove':
+              alert(responseData.data[0] ? 'Success !' : 'Failed !');
               return responseData.data[0];
             default:
               break;
           }
-
-
-          
         }
       });
 
     tree.on('select', (eventData) => {
       const nodeData = tree.getNodeData(eventData.nodeId);
       // equipService.searchByGroupId(nodeData.groupId);
+    });
+
+    tree.on('beforeCreateChildNode', function(event) {
+      if (event.cause === 'blur') {
+          tree.finishEditing();
+          tree.remove(event.nodeId);
+          return false;
+      }
+      return window.confirm('Are you sure you want to create?');
     });
 
     tree.on('beforeEditNode', function(event) {
@@ -159,12 +167,13 @@ function DepartmentPage() {
     });
 
     tree.on('successAjaxResponse', (evt) => {
-      console.log(evt);
       switch (evt.command) {
         case 'read':
           tree.select(evt.data[0]);
           break;
         case 'update':
+        case 'create':
+        case 'remove':
           break;
       
         default:
@@ -178,7 +187,7 @@ function DepartmentPage() {
     <>
       <Layout>
         <div className="department-wrap">
-          <div id="department-tree" className="department-tree">트리</div>
+          <div id="department-tree" className="department-tree tui-tree-wrap"></div>
           <div className="separator-5"></div>
           <div className="department-map">맵</div>
         </div>

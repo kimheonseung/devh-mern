@@ -34,4 +34,4 @@
 .tui-grid-cell-row-header { background-color: #2C2C2C !important; border-color: #404040 !important; }
 
 /* tree custom */
-.tui-tree-wrap { background-color: /*dimgray*/ #363636 !important; }
+.tui-tree-wrap { background-color: /*dimgray*/ #363636 !important; border-radius: 10px; }

@@ -3,7 +3,20 @@
 - Express
 - MongoDB
 - JWT
-  
+
+### dotenv
+```shell
+MONGO_USER
+MONGO_PW
+MONGO_DB
+MONGO_HOST
+SERVER_PORT
+AES_KEY
+JWT_ACCESS_SECRET
+JWT_REFRESH_SECRET
+JWT_ACCESS_HEADER
+JWT_REFRESH_HEADER
+```  
 
 ## User API
 ### 1. get users list
