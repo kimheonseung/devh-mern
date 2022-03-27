@@ -6,8 +6,9 @@
     width: 28%;
 }
 .department-map {
-    background-color: aqua;
+    background-color: rgb(30, 30, 45);
     width: 67%;
+    opacity: 0.9;
 }
 .tui-tree-root {
     height: 100%;
