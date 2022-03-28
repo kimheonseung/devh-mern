@@ -6,7 +6,8 @@
     width: 28%;
 }
 .department-map {
-    background-color: rgb(30, 30, 45);
+    /* background-color: rgb(30, 30, 45); */
+    background-color: rgb(215, 215, 224);
     width: 67%;
     opacity: 0.9;
 }
