@@ -22,6 +22,10 @@ const departmentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         default: null,
         ref: 'department'
+    },
+    depth: {
+        type: Number,
+        default: 0
     }
 }, { collection: 'department' });
 

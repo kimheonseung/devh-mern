@@ -8,6 +8,20 @@ import departmentRoutes from './modules/auth-module/routes/department.js';
 import dotenv from 'dotenv';
 import { validateAccessToken } from './modules/api/middleware/token.js';
 
+// import https from 'https';
+// import fs from 'fs';
+
+// const options = {
+//     pfx: fs.readFileSync('keyStore.pkcs12'),
+//     passphrase: 'secuve00.',
+//     minVersion: 'TLSv1.2'
+// }
+
+// https.createServer(options, (req, res) => {
+//     res.writeHead(200);
+//     res.end('hello ssl');
+// }).listen(5555);
+
 dotenv.config();
 
 const MONGODB_URL = `mongodb+srv://
