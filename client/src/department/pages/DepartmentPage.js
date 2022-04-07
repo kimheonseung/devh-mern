@@ -6,28 +6,29 @@ import 'tui-context-menu/dist/tui-context-menu.min.css';
 
 import { useEffect } from 'react';
 import { createDepartmentTree, initDepartmentTreeEvent } from 'department/tree/DepartmentTreeHelper';
-import { createDepartmentCytoscape, getTreeData, initDepartmentMap } from 'department/map/DepartmentMapHelper';
+import { createDepartmentCytoscape, initDepartmentMap } from 'department/map/DepartmentMapHelper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 function DepartmentPage() {
 
-  let tree;
   let cy;
 
   useEffect(() => {
-    tree = createDepartmentTree(document.getElementById('department-tree'));
-    initDepartmentTreeEvent(tree);
-
+    let tree = createDepartmentTree(document.getElementById('department-tree'));
     cy = createDepartmentCytoscape(document.getElementById('department-map'));
-    initDepartmentMap(cy, tree);
+    initDepartmentTreeEvent(tree, cy);
+    initDepartmentMap(cy);
   });
+
 
   return (
     <>
       <Layout>
         <div className="department-wrap">
-          <div id="department-tree" className="department-tree tui-tree-wrap"></div>
-          <div className="separator-5"></div>
-          <div id="department-map" className="department-map cyto-wrap">맵</div>
+          <div id="department-tree" className="department-tree tui-tree-wrap" />
+          <div className="separator-5" />
+          <div id="department-map" className="department-map cyto-wrap" />
         </div>
       </Layout>
     </>

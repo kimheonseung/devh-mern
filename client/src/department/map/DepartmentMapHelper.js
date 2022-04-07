@@ -1,7 +1,15 @@
 import cytoscape from "cytoscape";
+// import coseBilkent from 'cytoscape-cose-bilkent';
+import dagre from 'cytoscape-dagre';
 import axios from "axios";
 
+// cytoscape.use(coseBilkent);
+cytoscape.use(dagre);
 const departmentTreeApiUrl = process.env.REACT_APP_API_URL_PREFIX+"department/tree";
+
+const defaultWidth = '50';
+const defaultHeight = '50';
+const depthPixel = 10;
 
 const style = [
     {
@@ -9,8 +17,22 @@ const style = [
         style: {
             // shape: 'hexagon',
             'background-color': 'lightgreen',
-            'width': '25px',
-            'height': '25px',
+            'width': (ele) => {
+                const depth = ele.data().depth;
+                if(depth == 0) {
+                    return defaultWidth+'px';
+                } else {
+                    return (defaultWidth-(depthPixel*depth))+'px';
+                }
+            },
+            'height': (ele) => {
+                const depth = ele.data().depth;
+                if(depth == 0) {
+                    return defaultHeight+'px';
+                } else {
+                    return (defaultHeight-(depthPixel*depth))+'px';
+                }
+            },
             // 'background-image': 'url(/icon/manager.gif)',
             'label': 'data(label)'
 
@@ -19,23 +41,31 @@ const style = [
     {
         selector: 'edge',
         style: {
-            label: 'data(label)'
+            'curve-style': 'bezier',
+            // label: 'data(label)'
         }
     }
 ];
 
 const layout = {
-    name: 'grid',
+    // name: 'grid',
+    // rows: 5
+    // name: 'cose-bilkent',
+    name: 'dagre',
+    animate: false,
+    gravityRangeCompund: 1.5,
+    fit: true,
+    title: true
 };
 
 let nodesAndEdges = [];
 
 let x = 100;
 let y = 100;
-let depth = 0;
 
 const addDepartmentNodeRecursive = (arr, node) => {
-    const hasParent = node.department;
+    const depth = node.depth;
+    const hasParent = depth > 0;
     if(hasParent) {
         const parentNode = node.department;
         nodesAndEdges.push({
@@ -47,16 +77,13 @@ const addDepartmentNodeRecursive = (arr, node) => {
             },
             group: 'edges'
         });
-        depth += 1;
     }
+
     arr.push({
         data: {
             id: 'n-'+node.dataId,
+            depth: depth,
             label: node.name,
-        },
-        position: {
-            x: hasParent ? x+50*(depth-1) : x+50*depth,
-            y: hasParent ? y+50*depth : y+50*(depth-1),
         },
         group: 'nodes'
     });
@@ -71,26 +98,28 @@ export const createDepartmentCytoscape = (el) => {
     let cy = new cytoscape({
         container: el,
         style: style,
-        layout:layout
     })
-    cy.layout({ name: 'preset' }).run();
+    cy.layout(layout).run();
 
     return cy;
 }
-
-export const initDepartmentMap = (cy, treeData) => {
+ 
+export const initDepartmentMap = (cy) => {
     axios
         .get(departmentTreeApiUrl)
         .then((rs) => {
             const result = rs.data.status;
-            if(result == 200) {
+            if(result === 200) {
                 nodesAndEdges = [];
                 const nodeList = rs.data.data;
                 nodeList.forEach(node => {
                     addDepartmentNodeRecursive(nodesAndEdges, node);
                 });
+                if(cy) {
+                    cy.remove('node[*]');
+                }
                 cy.add(nodesAndEdges);
-
+                cy.layout(layout).run();
             }
         })
 }

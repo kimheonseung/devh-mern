@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { faGamepad, faLayerGroup, faPlay, faTable, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faLayerGroup, faPlay, faTable } from '@fortawesome/free-solid-svg-icons';
 import SidebarMenu from './SidebarMenu';
 
 function SideBar() {

@@ -12,8 +12,9 @@ function GamePage() {
   const [clickCount, setClickCount] = useState(0);
   const [totalCoin, setTotalCoin] = useState(0);
   const [percent, setPercent] = useState(0);
-  const [log, setLog] = useState('게임 시작 !');
-  const [countPerClick, setCountPerClick] = useState(1); // 한번의 클릭당 오르는 횟수
+  // const [log, setLog] = useState('게임 시작 !');
+  // const [countPerClick, setCountPerClick] = useState(1); // 한번의 클릭당 오르는 횟수
+  let countPerClick = 1;
   // const [clickWeight, setClickWeight] = useState(1); // 클릭 배수
   // const [clickBonus, setClickBonus] = useState(0); // 클릭 추가 횟수
   // const [x, setX] = useState(0);

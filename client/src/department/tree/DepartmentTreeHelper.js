@@ -1,3 +1,4 @@
+import { initDepartmentMap } from 'department/map/DepartmentMapHelper';
 import Tree from 'tui-tree';
 
 const treeOption = {
@@ -19,7 +20,7 @@ export const createDepartmentTree = (el) => {
     return new Tree(el, treeOption);
 }
 
-export const initDepartmentTreeEvent = (tree) => {
+export const initDepartmentTreeEvent = (tree, cy) => {
     tree.on('selectContextMenu', (e) => {
         const command = e.command;
         const nodeId = e.nodeId;
@@ -35,6 +36,8 @@ export const initDepartmentTreeEvent = (tree) => {
                 break;
             case 'deleteDepartment':
                 tree.remove(nodeId);
+                break;
+            default:
                 break;
           } 
         } else {
@@ -92,6 +95,7 @@ export const initDepartmentTreeEvent = (tree) => {
               const parentNode = tree.getNodeData(parentId);
               return {
                 name: name,
+                depth: parentNode.depth+1,
                 departmentId: parentNode.dataId
               };
             }
@@ -129,7 +133,7 @@ export const initDepartmentTreeEvent = (tree) => {
 
 
     tree.on('select', (eventData) => {
-        const nodeData = tree.getNodeData(eventData.nodeId);
+        // const nodeData = tree.getNodeData(eventData.nodeId);
         // equipService.searchByGroupId(nodeData.groupId);
     });
   
@@ -163,6 +167,7 @@ export const initDepartmentTreeEvent = (tree) => {
           case 'update':
           case 'create':
           case 'remove':
+            initDepartmentMap(cy);
             break;
         
           default:
@@ -170,5 +175,7 @@ export const initDepartmentTreeEvent = (tree) => {
         }
         
     });
+
+    
 }
 
