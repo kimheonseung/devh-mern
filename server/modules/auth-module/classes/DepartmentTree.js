@@ -8,7 +8,6 @@ class DepartmentTree extends Tree {
         this.name = department.name;
         this.description = department.description;
         this.department = department.department;
-        this.depth = department.depth;
     }
     isRoot() {
         return this.department == null;

@@ -46,126 +46,108 @@ mongoose.connect(MONGODB_URL, {
             name: '대표이사',
             description: '대표',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department3 = new DepartmentData({
             id: 3,
             name: '기획',
             description: '기획',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department4 = new DepartmentData({
             id: 4,
             name: '감사',
             description: '감사',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department5 = new DepartmentData({
             id: 5,
             name: '경영',
             description: '경영',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department6 = new DepartmentData({
             id: 6,
             name: '영업',
             description: '영업',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department7 = new DepartmentData({
             id: 7,
             name: '연구소',
             description: '연구소',
             department: department1,
-            depth: department1.depth + 1,
         });
         const department8 = new DepartmentData({
             id: 8,
             name: '인사',
             description: '인사',
             department: department5,
-            depth: department5.depth + 1,
         });
         const department9 = new DepartmentData({
             id: 9,
             name: '재무',
             description: '재무',
             department: department5,
-            depth: department5.depth + 1,
         });
         const department10 = new DepartmentData({
             id: 10,
             name: '국내영업',
             description: '국내영업',
             department: department6,
-            depth: department6.depth + 1,
         });
         const department11 = new DepartmentData({
             id: 11,
             name: '해외영업',
             description: '해외영업',
             department: department6,
-            depth: department6.depth + 1,
         });
         const department12 = new DepartmentData({
             id: 12,
             name: '1연구소',
             description: '1연구소',
             department: department7,
-            depth: department7.depth + 1,
         });
         const department13 = new DepartmentData({
             id: 13,
             name: '2연구소',
             description: '2연구소',
             department: department7,
-            depth: department7.depth + 1,
         });
         const department14 = new DepartmentData({
             id: 14,
             name: '3연구소',
             description: '3연구소',
             department: department7,
-            depth: department7.depth + 1,
         });
         const department15 = new DepartmentData({
             id: 15,
             name: 'C개발',
             description: 'C개발',
             department: department12,
-            depth: department12.depth + 1,
         });
         const department16 = new DepartmentData({
             id: 16,
             name: 'C설계',
             description: 'C설계',
             department: department12,
-            depth: department12.depth + 1,
         });
         const department17 = new DepartmentData({
             id: 17,
             name: 'JAVA개발',
             description: 'JAVA개발',
             department: department13,
-            depth: department13.depth + 1,
         });
         const department18 = new DepartmentData({
             id: 18,
             name: 'JAVA설계',
             description: 'JAVA설계',
             department: department13,
-            depth: department13.depth + 1,
         });
         const department19 = new DepartmentData({
             id: 19,
             name: 'QA',
             description: 'QA',
             department: department14,
-            depth: department14.depth + 1,
         });
 
         const user1 = new UserData({

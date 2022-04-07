@@ -23,10 +23,6 @@ const departmentSchema = mongoose.Schema({
         default: null,
         ref: 'department'
     },
-    depth: {
-        type: Number,
-        default: 0
-    }
 }, { collection: 'department' });
 
 autoIdSetter(departmentSchema, mongoose, 'department', 'id');
