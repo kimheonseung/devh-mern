@@ -18,20 +18,22 @@ const style = [
             // shape: 'hexagon',
             'background-color': 'lightgreen',
             'width': (ele) => {
-                const depth = ele.data().depth;
-                if(depth == 0) {
-                    return defaultWidth+'px';
-                } else {
-                    return (defaultWidth-(depthPixel*depth))+'px';
-                }
+                return defaultWidth;
+                // const depth = ele.data().depth;
+                // if(depth == 0) {
+                //     return defaultWidth+'px';
+                // } else {
+                //     return (defaultWidth-(depthPixel*depth))+'px';
+                // }
             },
             'height': (ele) => {
-                const depth = ele.data().depth;
-                if(depth == 0) {
-                    return defaultHeight+'px';
-                } else {
-                    return (defaultHeight-(depthPixel*depth))+'px';
-                }
+                return defaultWidth;
+                // const depth = ele.data().depth;
+                // if(depth == 0) {
+                //     return defaultHeight+'px';
+                // } else {
+                //     return (defaultHeight-(depthPixel*depth))+'px';
+                // }
             },
             // 'background-image': 'url(/icon/manager.gif)',
             'label': 'data(label)'
@@ -64,9 +66,9 @@ let x = 100;
 let y = 100;
 
 const addDepartmentNodeRecursive = (arr, node) => {
-    const depth = node.depth;
-    const hasParent = depth > 0;
-    if(hasParent) {
+    // const depth = node.depth;
+    // const hasParent = depth > 0;
+    if(node.department) {
         const parentNode = node.department;
         nodesAndEdges.push({
             data: {
@@ -82,7 +84,7 @@ const addDepartmentNodeRecursive = (arr, node) => {
     arr.push({
         data: {
             id: 'n-'+node.dataId,
-            depth: depth,
+            // depth: depth,
             label: node.name,
         },
         group: 'nodes'

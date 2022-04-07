@@ -76,10 +76,14 @@ export const initDepartmentTreeEvent = (tree, cy) => {
             method: 'POST',
             contentType: 'application/json',
             params: function(treeData) {
+              console.log(treeData);
               const oldNode = tree.getNodeData(treeData.nodeId);
+              console.log(oldNode);
               const oldDepartmentId = oldNode.dataId;
                 return {
                     id: oldDepartmentId,
+                    dataId: oldDepartmentId,
+                    depth: oldNode.depth+1,
                     name: treeData.data.text
                 };
             }
@@ -131,51 +135,46 @@ export const initDepartmentTreeEvent = (tree, cy) => {
       });
 
 
-
-    tree.on('select', (eventData) => {
-        // const nodeData = tree.getNodeData(eventData.nodeId);
-        // equipService.searchByGroupId(nodeData.groupId);
-    });
-  
-    tree.on('beforeCreateChildNode', function(event) {
+    tree.on({
+      select: (eventData) => {
+        console.log(eventData);
+      },
+      beforeCreateChildNode: (event) => {
         if (event.cause === 'blur') {
-            tree.finishEditing();
-            tree.remove(event.nodeId);
-            return false;
+          tree.finishEditing();
+          tree.remove(event.nodeId);
+          return false;
         }
         return window.confirm('Are you sure you want to create?');
-    });
-  
-    tree.on('beforeEditNode', function(event) {
+      },
+      beforeEditNode: (event) => {
         if (event.cause === 'blur') {
-            tree.finishEditing();
-            return false;
+          tree.finishEditing();
+          return false;
         }
         return window.confirm('Are you sure you want to edit?');
-    });
-  
-    tree.on('beforeOpenContextMenu', function(evt) {
-        evt.nodeId ? contextMenuEnable = true : contextMenuEnable = false;
+      },
+      beforeOpenContextMenu: (event) => {
+        event.nodeId ? contextMenuEnable = true : contextMenuEnable = false;
         tree.changeContextMenu(getContextMenu(contextMenuEnable));
-    });
-  
-    tree.on('successAjaxResponse', (evt) => {
-        switch (evt.command) {
+      },
+      successAjaxResponse: (event) => {
+        switch (event.command) {
           case 'read':
-            tree.select(evt.data[0]);
+            tree.select(event.data[0]);
             break;
           case 'update':
           case 'create':
           case 'remove':
+            tree.refresh();
             initDepartmentMap(cy);
             break;
         
           default:
             break;
         }
-        
+      }
     });
 
-    
 }
 

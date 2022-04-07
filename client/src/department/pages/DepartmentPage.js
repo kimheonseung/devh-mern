@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from 'layout/Layout';
 import './DepartmentPage.css';
 import 'tui-tree/dist/tui-tree.min.css';
 import 'tui-context-menu/dist/tui-context-menu.min.css';
-
-import { useEffect } from 'react';
 import { createDepartmentTree, initDepartmentTreeEvent } from 'department/tree/DepartmentTreeHelper';
 import { createDepartmentCytoscape, initDepartmentMap } from 'department/map/DepartmentMapHelper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 function DepartmentPage() {
 
