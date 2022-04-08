@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
-import refresher from "department/module/refreshModule";
+import refresher from "department/modules/refreshModule";
+import searchSelectChanger from 'search/modules/searchSelectChangeModule';
 
-const rootReducer = combineReducers({
+
+export const rootReducer = combineReducers({
     refresher,
+    searchSelectChanger,
 });
-
-export default rootReducer;

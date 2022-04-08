@@ -1,4 +1,4 @@
-import { handleActions } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import produce from 'immer';
 
 const initState = {

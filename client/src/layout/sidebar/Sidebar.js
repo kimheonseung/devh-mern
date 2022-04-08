@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { faGamepad, faLayerGroup, faPlay, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faLayerGroup, faPlay, faSearch, faTable } from '@fortawesome/free-solid-svg-icons';
 import SidebarMenu from './SidebarMenu';
 
 function SideBar() {
@@ -51,6 +51,16 @@ function SideBar() {
     }
   }
 
+  const search = {
+    menu: {
+      title: '검색',
+      group: 'Search',
+      hasSubMenu: false,
+      icon: faSearch,
+      href: '/search'
+    }
+  }
+
   useEffect(() => {
   })
 
@@ -64,6 +74,7 @@ function SideBar() {
           <div className="list-group list-group-flush">
               <SidebarMenu menuObject={game} />
               <SidebarMenu menuObject={department} />
+              <SidebarMenu menuObject={search} />
           </div>
         </div>
       </div>

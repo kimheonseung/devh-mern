@@ -104,3 +104,6 @@ a:hover, a:active, a:focus { background-color:transparent !important; }
 .separator-5 {
     width: 5%;
 }
+.divider-5 {
+    height: 5%;
+}

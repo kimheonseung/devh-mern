@@ -8,8 +8,8 @@ cytoscape.use(dagre);
 const departmentTreeApiUrl = process.env.REACT_APP_API_URL_PREFIX+"department/tree";
 
 const defaultWidth = '50';
-const defaultHeight = '50';
-const depthPixel = 10;
+// const defaultHeight = '50';
+// const depthPixel = 10;
 
 const style = [
     {
@@ -62,8 +62,8 @@ const layout = {
 
 let nodesAndEdges = [];
 
-let x = 100;
-let y = 100;
+// let x = 100;
+// let y = 100;
 
 const addDepartmentNodeRecursive = (arr, node) => {
     // const depth = node.depth;

@@ -9,6 +9,7 @@ import GamePage from 'game/play/pages/GamePlayPage';
 import RankPage from 'game/rank/pages/GameRankPage';
 import LoginPage from 'login/pages/LoginPage';
 import DepartmentPage from 'department/pages/DepartmentPage';
+import SearchPage from 'search/pages/SearchPage';
 import PrivateRoute from 'PrivateRoute';
 
 dotenv.config();
@@ -22,6 +23,7 @@ function App() {
         <PrivateRoute exact path='/game/play' component={GamePage} />
         <PrivateRoute exact path='/game/rank' component={RankPage} />
         <PrivateRoute exact path='/department' component={DepartmentPage} />
+        <PrivateRoute exact path='/search' component={SearchPage} />
       </Switch>
     </Router>
   );
