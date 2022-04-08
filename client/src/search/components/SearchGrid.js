@@ -4,6 +4,7 @@ import Grid from '@toast-ui/react-grid';
 import TuiGrid from 'tui-grid';
 import 'tui-grid/dist/tui-grid.css';
 import axios from 'axios';
+import Pagination from 'paging/Pagination';
 
 
 function SearchGrid({defaultApiUrl}) {
@@ -11,6 +12,16 @@ function SearchGrid({defaultApiUrl}) {
   const searchSelectChanger = useSelector(state => state.searchSelectChanger);
   
   const gridRef = useRef();
+
+  const [pagingInfo, setPagingInfo] = useState({
+    prev: false,
+    next: false,
+    page: 1,
+    start: 1,
+    end: 1,
+    totalPage: 1,
+    pageList: [1],
+  });
 
   TuiGrid.applyTheme('default', {
     row: {
@@ -88,6 +99,7 @@ function SearchGrid({defaultApiUrl}) {
   ];
 
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
 
@@ -95,21 +107,23 @@ function SearchGrid({defaultApiUrl}) {
       return;
     }
 
-    let queryString = '?fromMillis=1648303178000&';
-
+    let queryString = `?fromMillis=1648303178000&page=${page}&`;
     for(let i = 0 ; i < searchSelectChanger.conditionArray.length ; ++i) {
       if(i > 0) {
         queryString += '&';
       }
       const c = searchSelectChanger.conditionArray[i];
-      queryString += c.field;
-      queryString += '=';
+      queryString += `${c.field}=`;
+      let operatorString = '';
       for(let j = 0 ; j < c.values.length ; ++j) {
         if(j > 0) {
           queryString += ','
+          operatorString += ','
         }
-        queryString +=c.values[j].value;
+        queryString += c.values[j].value;
+        operatorString += 'eq';
       }
+      queryString += `&${c.field}Operator=${operatorString}`;
     }
 
     axios
@@ -119,26 +133,15 @@ function SearchGrid({defaultApiUrl}) {
         if(result.data.status === 200) {
           const dataArray = result.data.dataArray;
           setData(dataArray);
+          setPagingInfo(result.data.paging);
         }
       })
     
-    console.log(queryString)
-  }, [searchSelectChanger.conditionArray]);
+  }, [searchSelectChanger.conditionArray, page]);
 
   return (
     <>
       <div className="search-grid-area">
-        {/*
-          searchSelectChanger.conditionArray.map((c, i) => (
-            <span key={i} className="t-text">
-              {
-                c.values.map((v, vi) => (
-                  `${v}, `
-                ))
-              }
-            </span>
-          ))
-            */}
         <Grid
           ref={gridRef}
           width={gridOption.width} 
@@ -151,6 +154,19 @@ function SearchGrid({defaultApiUrl}) {
           columns={columns}
           data={data}
         />
+        <div className="gridPaging" >
+        {
+          <Pagination 
+            prev={pagingInfo?.prev}
+            next={pagingInfo?.next}
+            page={pagingInfo?.page}
+            start={pagingInfo?.start}
+            end={pagingInfo?.end}
+            totalPage={pagingInfo?.totalPage}
+            pageList={pagingInfo?.pageList}
+            handleClick={(page) => setPage(page)} />
+        }
+        </div>
       </div>
      
     </>
