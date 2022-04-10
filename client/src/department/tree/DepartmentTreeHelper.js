@@ -64,6 +64,9 @@ export const initDepartmentTreeEvent = (tree, cy) => {
             url: apiUrl+'tree',
             contentType: 'application/json',
             method: 'GET',
+            headers: {
+              'Authorization': localStorage.getItem(process.env.REACT_APP_ACCESS_TOKEN_KEY),
+            },
             /*
             params: (treeData) => {
               console.log(treeData);

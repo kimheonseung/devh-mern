@@ -10,11 +10,21 @@ import RankPage from 'game/rank/pages/GameRankPage';
 import LoginPage from 'login/pages/LoginPage';
 import DepartmentPage from 'department/pages/DepartmentPage';
 import SearchPage from 'search/pages/SearchPage';
+import StatisticsPage from 'statistics/pages/StatisticsPage';
 import PrivateRoute from 'PrivateRoute';
+import { useEffect } from 'react';
+import { silentRefresh } from 'common/AuthUtil';
 
 dotenv.config();
 
 function App() {
+  useEffect(() => {
+    // silentRefresh();
+    if(!window.location.href.endsWith('/login')) {
+      silentRefresh();
+    };
+  });
+
   return (
     <Router>
       <Switch>
@@ -24,6 +34,7 @@ function App() {
         <PrivateRoute exact path='/game/rank' component={RankPage} />
         <PrivateRoute exact path='/department' component={DepartmentPage} />
         <PrivateRoute exact path='/search' component={SearchPage} />
+        <PrivateRoute exact path='/statistics' component={StatisticsPage} />
       </Switch>
     </Router>
   );

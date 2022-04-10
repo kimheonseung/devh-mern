@@ -8,11 +8,9 @@ import { createDepartmentCytoscape, initDepartmentMap } from 'department/map/Dep
 
 function DepartmentPage() {
 
-  let cy;
-
   useEffect(() => {
     let tree = createDepartmentTree(document.getElementById('department-tree'));
-    cy = createDepartmentCytoscape(document.getElementById('department-map'));
+    let cy = createDepartmentCytoscape(document.getElementById('department-map'));
     initDepartmentTreeEvent(tree, cy);
     initDepartmentMap(cy);
   });

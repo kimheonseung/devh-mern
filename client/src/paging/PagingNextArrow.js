@@ -9,29 +9,29 @@ function PagingNextArrow({next, end, totalPage, handleClick}) {
             {
                 next ?
                     <li className="page-item">
-                        <a className="page-link" data-page={''+(end + 1)} onClick={() => handleClick(end + 1)}>
+                        <button className="page-link" data-page={''+(end + 1)} onClick={() => handleClick(end + 1)}>
                             <FontAwesomeIcon icon={faAngleRight} />
-                        </a>
+                        </button>
                     </li>
                 :
                     <li className="page-item disabled">
-                        <a className="page-link" data-page={''+(end + 1)} onClick={() => handleClick(end + 1)}>
+                        <button className="page-link" data-page={''+(end + 1)} onClick={() => handleClick(end + 1)}>
                             <FontAwesomeIcon icon={faAngleRight} />
-                        </a>
+                        </button>
                     </li>
             }
             {
                 totalPage > end ?
                     <li className="page-item">
-                        <a className="page-link" data-page={''+totalPage} onClick={() => handleClick(totalPage)}>
+                        <button className="page-link" data-page={''+totalPage} onClick={() => handleClick(totalPage)}>
                             <FontAwesomeIcon icon={faAngleDoubleRight} />
-                        </a>
+                        </button>
                     </li>
                 :
                     <li className="page-item disabled">
-                        <a className="page-link" data-page={''+totalPage} onClick={() => handleClick(totalPage)}>
+                        <button className="page-link" data-page={''+totalPage} onClick={() => handleClick(totalPage)}>
                             <FontAwesomeIcon icon={faAngleDoubleRight} />
-                        </a>
+                        </button>
                     </li>
             }
         </>

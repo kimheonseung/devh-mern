@@ -10,9 +10,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { setToken, encryptAES256 } from 'common/AuthUtil';
 
-// const urlPrefix = process.env.REACT_APP_API_URL_PREFIX;
-
-function LoginPage({location, props}) {
+function LoginPage() {
   
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
@@ -23,23 +21,24 @@ function LoginPage({location, props}) {
   
   const handleClick = () => {
     axios
-    .post(loginUrl, {username: userId, password: encryptAES256(password)})
-    .then((rs) => {
-      const status = rs.data.status;
-      if(status === 200) {
-        setToken(rs.data.data[0]);
-        history.push("/");
-      }
-      else 
-        alert('아이디 또는 비밀번호를 확인해주세요.');
-    })
-    .catch((e) => {
-      console.log('catch !');
-      console.log(e);
-    })
-    .finally(() => {
-      console.log('finally !');
-    });
+      .post(loginUrl, {username: userId, password: encryptAES256(password)})
+      .then((rs) => {
+        const status = rs.data.status;
+        if(status === 200) {
+          setToken(rs.data.data[0]);
+          // setTimeout(handleClick, /*30*60**/1000);
+          history.push("/");
+        }
+        else 
+          alert('아이디 또는 비밀번호를 확인해주세요.');
+      })
+      .catch((e) => {
+        console.log('catch !');
+        console.log(e);
+      })
+      .finally(() => {
+        console.log('finally !');
+      });
   }
 
   const handleKeyPress = (e) => {

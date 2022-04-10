@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { faGamepad, faLayerGroup, faPlay, faSearch, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faGamepad, faLayerGroup, faPlay, faSearch, faTable } from '@fortawesome/free-solid-svg-icons';
 import SidebarMenu from './SidebarMenu';
 
 function SideBar() {
@@ -61,6 +61,16 @@ function SideBar() {
     }
   }
 
+  const statistics = {
+    menu: {
+      title: '통계',
+      group: 'Statistics',
+      hasSubMenu: false,
+      icon: faChartBar,
+      href: 'statistics'
+    }
+  }
+
   useEffect(() => {
   })
 
@@ -75,6 +85,7 @@ function SideBar() {
               <SidebarMenu menuObject={game} />
               <SidebarMenu menuObject={department} />
               <SidebarMenu menuObject={search} />
+              <SidebarMenu menuObject={statistics} />
           </div>
         </div>
       </div>

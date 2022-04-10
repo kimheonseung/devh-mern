@@ -9,29 +9,29 @@ function PagingPrevArrow({start, prev, handleClick}) {
             {
                 start > 1 ?
                     <li className="page-item">
-                        <a className="page-link" data-page={''+1} onClick={() => handleClick(1)}>
+                        <button className="page-link" data-page={''+1} onClick={() => handleClick(1)}>
                             <FontAwesomeIcon icon={faAngleDoubleLeft} />
-                        </a>
+                        </button>
                     </li>
                 :
                     <li className="page-item disabled">
-                        <a className="page-link" data-page={''+1} onClick={() => handleClick(1)}>
+                        <button className="page-link" data-page={''+1} onClick={() => handleClick(1)}>
                             <FontAwesomeIcon icon={faAngleDoubleLeft} />
-                        </a>
+                        </button>
                     </li>
             }
             {
                 prev ?
                     <li className="page-item">
-                        <a className="page-link" data-page={''+(start - 1)} onClick={() => handleClick(start - 1)}>
+                        <button className="page-link" data-page={''+(start - 1)} onClick={() => handleClick(start - 1)}>
                             <FontAwesomeIcon icon={faAngleLeft} />
-                        </a>
+                        </button>
                     </li>
                 :
                     <li className="page-item disabled">
-                        <a className="page-link" data-page={''+(start - 1)} onClick={() => handleClick(start - 1)}>
+                        <button className="page-link" data-page={''+(start - 1)} onClick={() => handleClick(start - 1)}>
                             <FontAwesomeIcon icon={faAngleLeft} />
-                        </a>
+                        </button>
                     </li>
             }
         </>
