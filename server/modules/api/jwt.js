@@ -51,9 +51,24 @@ const refresh = (accessToken, refreshToken) => {
     }
 }
 
+const silentRefresh = (refreshToken) => {
+    try {
+        const info = decode(refreshToken);
+        return createTokenInformation(info.username, info.authorities, info.departments);
+    } catch (error) {
+        return new TokenInformation('', '')
+    }
+}
+
+const decode = (token) => {
+    return jwt.decode(token);
+}
+
 export default {
     createAccessToken: createAccessToken,
     createRefreshToken: createRefreshToken,
     createTokenInformation: createTokenInformation,
-    refresh: refresh
+    refresh: refresh,
+    silentRefresh: silentRefresh,
+    decode: decode
 }

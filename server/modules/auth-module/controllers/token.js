@@ -12,3 +12,14 @@ export const refresh = async (req, res) => {
         apiResponse.error(res, error.message);
     }
 }
+
+export const silentRefresh = async (req, res) => {
+    console.log('silentRefresh');
+
+    try {
+        const refreshToken = req.header(process.env.JWT_REFRESH_HEADER);
+        apiResponse.success(res, jwt.silentRefresh(refreshToken));
+    } catch (error) {
+        apiResponse.error(res, error.message);
+    }
+}

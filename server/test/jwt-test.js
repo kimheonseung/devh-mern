@@ -7,3 +7,10 @@ let reftkn = jwt.createRefreshToken('admin', ['at1'], ['dept1', 'dept2']);
 
 console.log("accessToken: " + acctkn);
 console.log("refreshToken: " + reftkn);
+
+const info = jwt.decode(reftkn);
+
+
+console.log(info.username);
+console.log(info.authorities);
+console.log(info.departments);
