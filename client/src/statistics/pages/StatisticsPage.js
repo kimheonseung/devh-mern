@@ -1,65 +1,190 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from 'layout/Layout';
-import '@toast-ui/chart/dist/toastui-chart.min.css';
-import { ComboChart } from "@toast-ui/react-chart";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, LineElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Bar, Pie, Line } from 'react-chartjs-2';
+import axios from 'axios';
+import './StatisticsPage.css'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function StatisticsPage() {
-  const chartRef = useRef(null);
-  const defaultApiUrl = 'http://localhost:8088/';
-  
-  const data = {
-    categories: ["Apr", "May", "June", "July", "Aug", "Sep", "Oct"],
-    series: {
-      column: [
+  const defaultApiUrl = 'http://localhost:8088/aggregation/sample-log';
+
+  // const lbs = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  // const dt = {
+  //   labels: lbs,
+  //   datasets: [
+  //     {
+  //       label: 'Dataset 1',
+  //       data: [1, 500, 372, 382, 543, 928, 182],
+  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+  //     },
+  //     {
+  //       label: 'Dataset 2',
+  //       data: [923, 190, 3, 21, 83, 213, 666],
+  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+  //     },
+  //   ],
+  // };
+
+  const options = {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Hello Chart'
+      }
+    }
+  }
+
+  const [barData, setBarData] = useState({
+    labels: ['No Data'],
+    datasets: [{label: 'No Data', data: ['No Data'], backgroundColor: ['rgba(255, 99, 132, 0.2)']}],
+  })
+
+  const [pieData, setPieData] = useState({
+    labels: ['No Data'],
+    datasets: [{label: 'No Data', data: ['No Data'], backgroundColor: ['rgba(255, 99, 132, 0.2)']}],
+  });
+  const [lineData, setLineData] = useState({
+    labels: ['No Data'],
+    datasets: [{label: 'No Data', data: ['No Data'], backgroundColor: ['rgba(255, 99, 132, 0.2)']}],
+  });
+
+  const createQueryString = ({fromMillis, aggregation, aggregationField, aggregationTopN, aggregationType}) => {
+    return `?fromMillis=${fromMillis}&aggregation=${aggregation}&aggregationField=${aggregationField}&aggregationTopN=${aggregationTopN}&aggregationType=${aggregationType}`;
+  }
+
+  const createBarData = (labels, data) => {
+    return {
+      labels: labels,
+      datasets: [
         {
-          name: "Seoul",
-          data: [11.3, 17.0, 21.0, 24.4, 25.2, 20.4, 13.9]
+          label: '# of logs',
+          data: data,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
         }
       ],
-      line: [
+    };
+  }
+
+  const createPieData = (labels, data) => {
+    return {
+      labels: labels,
+      datasets: [
         {
-          name: "Average",
-          data: [11, 15.1, 17.8, 19.7, 19.5, 16.5, 12.3]
+          label: '# of logs',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 1
         }
       ]
-    }
-  };
-  
-  const options = {
-    chart: {
-      width: 1160,
-      height: 650,
-      title: "Monthly Revenue",
-      format: "1,000"
-    },
-    yAxis: {
-      title: "Month"
-    },
-    xAxis: {
-      title: "Amount",
-      min: 0,
-      max: 9000,
-      suffix: "$"
-    },
-    series: {
-      showLabel: true
-    }
-  };
+    };
+  }
+
+  const createLineData = (labels, data) => {
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: '# of logs',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor:  'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    };
+  }
+
+  const draw = () => {
+    const field = 'logName,ip,timeMillis';
+    const topN = '5,5,10';
+    const type = 'term,term,time';
+    axios
+      .get(defaultApiUrl+createQueryString({
+        fromMillis: 1648303178000,
+        aggregation: true,
+        aggregationField: field,
+        aggregationTopN: topN,
+        aggregationType: type
+      }))
+      .then((rs) => {
+        if(200 === rs.data.status) {
+          Object.keys(rs.data.dataArray[0]).forEach(key => {
+            const dataArray = rs.data.dataArray[0][key];
+            if(dataArray.length > 0) {
+              const labels = dataArray.map((d) => d.key);
+              const data = dataArray.map((d) => d.docCount);
+              const aggsType = key.split('_')[1];
+              const fieldName = key.split('_')[0];
+              switch (aggsType) {
+                case 'term':
+                  if('ip' === fieldName) {
+                    setPieData(createPieData(labels, data));
+                  } else if('logName' === fieldName) {
+                    setBarData(createBarData(labels, data));
+                  }
+                  break;
+                case 'time':
+                  setLineData(createLineData(labels, data));
+                  break;
+                default:
+                  break;
+              }
+
+            }
+          });
+        };
+      })
+  }
 
   useEffect(() => {
-    
-  });
+    // drawIpPie();
+    // drawTimeLine();
+    draw();
+  }, [null]);
 
   return (
     <>
       <Layout>
         <div className="statistics-wrap">
-        <ComboChart data={data} options={options} />
-        {/* <PieChart
-          ref={chartRef}
-          data={data} 
-          options={options} 
-        /> */}
+          <div className="statistics-2">
+            <Bar width={320} height={320} options={options} data={barData} />
+            <Pie width={320} height={320} options={options} data={pieData} />
+          </div>
+          <div className="statistics-1">
+            <Line width={640} height={320} options={options} data={lineData} />;
+          </div>
         </div>
       </Layout>
     </>

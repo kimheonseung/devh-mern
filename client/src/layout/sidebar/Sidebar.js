@@ -67,7 +67,7 @@ function SideBar() {
       group: 'Statistics',
       hasSubMenu: false,
       icon: faChartBar,
-      href: 'statistics'
+      href: '/statistics'
     }
   }
 
