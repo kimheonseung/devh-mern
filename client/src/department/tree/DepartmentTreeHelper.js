@@ -45,8 +45,6 @@ export const initDepartmentTreeEvent = (tree, cy) => {
         }
     });
 
-
-
     tree
       .enableFeature('Selectable')
       .enableFeature('Editable', {
@@ -129,8 +127,8 @@ export const initDepartmentTreeEvent = (tree, cy) => {
             case 'update':
             case 'create':
             case 'remove':
-              alert(responseData.data[0] ? 'Success !' : 'Failed !');
-              return responseData.data[0];
+              alert(responseData.result ? 'Success !' : 'Failed !');
+              return responseData.result;
             default:
               break;
           }
@@ -181,3 +179,7 @@ export const initDepartmentTreeEvent = (tree, cy) => {
 
 }
 
+export const refresh = (tree) => {
+  console.log(tree)
+  tree.ajax('read');
+}

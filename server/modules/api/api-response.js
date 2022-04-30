@@ -10,6 +10,7 @@ const success = (res, data) => {
         status: 200,
         message: "Success",
         description: "Response Success",
+        result: true,
         data: data
     });
 }
@@ -19,6 +20,7 @@ const successWithPaging = (res, data, paging) => {
         status: 200,
         message: "Success",
         description: "Response Success",
+        result: true,
         data: data,
         paging: paging
     });
@@ -29,6 +31,7 @@ const error = (res, errorMessage) => {
         status: 500,
         message: "Error",
         description: "Response Failed",
+        result: false,
         message: errorMessage
     });
 }

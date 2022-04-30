@@ -8,8 +8,6 @@ cytoscape.use(dagre);
 const departmentTreeApiUrl = process.env.REACT_APP_API_URL_PREFIX+"department/tree";
 
 const defaultWidth = '50';
-// const defaultHeight = '50';
-// const depthPixel = 10;
 
 const style = [
     {

@@ -15,7 +15,8 @@ export const setToken = (tokens) => {
     localStorage.setItem(process.env.REACT_APP_ACCESS_TOKEN_KEY, tokens.accessToken);
     localStorage.setItem(process.env.REACT_APP_REFRESH_TOKEN_KEY, tokens.refreshToken);
     const token = jwt.decode(tokens.accessToken);
-    const duration = token.exp - new Date().getTime();
+    console.log(token.exp);
+    const duration = new Date().getTime() - token.exp;
     setTimeout(silentRefresh, duration - 60000);
   }
 }

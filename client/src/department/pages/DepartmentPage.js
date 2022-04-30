@@ -3,18 +3,24 @@ import Layout from 'layout/Layout';
 import './DepartmentPage.css';
 import 'tui-tree/dist/tui-tree.min.css';
 import 'tui-context-menu/dist/tui-context-menu.min.css';
-import { createDepartmentTree, initDepartmentTreeEvent } from 'department/tree/DepartmentTreeHelper';
+import { createDepartmentTree, initDepartmentTreeEvent, refresh } from 'department/tree/DepartmentTreeHelper';
 import { createDepartmentCytoscape, initDepartmentMap } from 'department/map/DepartmentMapHelper';
 
 function DepartmentPage() {
 
+  let tree;
+
   useEffect(() => {
-    let tree = createDepartmentTree(document.getElementById('department-tree'));
+    tree = createDepartmentTree(document.getElementById('department-tree'));
+    console.log(tree);
     let cy = createDepartmentCytoscape(document.getElementById('department-map'));
     initDepartmentTreeEvent(tree, cy);
     initDepartmentMap(cy);
   });
 
+  const handleClick = () => {
+    refresh(tree);
+  }
 
   return (
     <>
@@ -23,6 +29,7 @@ function DepartmentPage() {
           <div id="department-tree" className="department-tree tui-tree-wrap" />
           <div className="separator-5" />
           <div id="department-map" className="department-map cyto-wrap" />
+          <button id="test" onClick={handleClick} />
         </div>
       </Layout>
     </>

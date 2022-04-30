@@ -95,7 +95,7 @@ export const update = async (req, res) => {
         }
 
         await DepartmentData.updateOne({id: oldDepartment.id}, {$set: newDepartment});
-        apiResponse.success(res, true);
+        apiResponse.success(res, newDepartment);
     } catch (error) {
         apiResponse.error(res, error.message);
     }
@@ -126,7 +126,7 @@ export const deleteByName = async (req, res) => {
             const ids = [];
             findAllChildrenIds(ids, middleTree);
             await DepartmentData.deleteMany({id: {$in: ids}});
-            apiResponse.success(res, true);
+            apiResponse.success(res, name);
         } catch (error) {
             apiResponse.error(res, error.message);
         }
