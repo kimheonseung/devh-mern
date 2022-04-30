@@ -1,4 +1,5 @@
 import { initDepartmentMap } from 'department/map/DepartmentMapHelper';
+import _ from 'lodash';
 import Tree from 'tui-tree';
 
 const treeOption = {
@@ -124,8 +125,10 @@ export const initDepartmentTreeEvent = (tree, cy) => {
           switch (command) {
             case 'read':
               return responseData.data[0];
-            case 'update':
             case 'create':
+            case 'update':
+              alert(responseData.result ? 'Success !' : 'Failed !');
+              return responseData.data[0];
             case 'remove':
               alert(responseData.result ? 'Success !' : 'Failed !');
               return responseData.result;
@@ -181,5 +184,8 @@ export const initDepartmentTreeEvent = (tree, cy) => {
 
 export const refresh = (tree) => {
   console.log(tree)
-  tree.ajax('read');
+  var treeAjax = tree.enabledFeatures.Ajax;
+  treeAjax.loadData('read', (a) => {
+    console.log(a);
+  });
 }
